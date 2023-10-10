@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     // Update 1is called once per frame
     void Update()
     {
+       
 
         if (rb.velocity.magnitude <= MaxVelocity)
         {
