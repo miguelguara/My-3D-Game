@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
+
 public class Player : MonoBehaviour
 {
     [SerializeField]
@@ -13,7 +15,6 @@ public class Player : MonoBehaviour
     private Rigidbody rb;
     [SerializeField]
     private GameObject GMN;
- 
 
     void Awake()
     {
@@ -28,12 +29,31 @@ public class Player : MonoBehaviour
     // Update 1is called once per frame
     void Update()
     {
-       
 
-        if (rb.velocity.magnitude <= MaxVelocity)
+        float Hinput = 0;
+        if (Input.GetMouseButton(0))
         {
-            rb.AddForce(new Vector3(Input.GetAxis("Horizontal") * Force * Time.deltaTime, 0f, 0f),ForceMode.Impulse);
+            var center = Screen.width / 2;
+            var mposition = Input.mousePosition;
+            if (mposition.x > center)
+            {
+                Hinput = 1f;
+            }
+            else if (mposition.x < center)
+            {
+                Hinput = -1f;
+            }
         }
+        else
+        {
+            Hinput = Input.GetAxis("Horizontal");
+        }
+
+            if (rb.velocity.magnitude <= MaxVelocity)
+            {
+                rb.AddForce(new Vector3(Hinput * Force * Time.deltaTime, 0f, 0f), ForceMode.Impulse);
+            }
+        
     }
 
     private void OnCollisionEnter(Collision coll)
